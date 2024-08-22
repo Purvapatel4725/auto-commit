@@ -1,54 +1,53 @@
 name: Auto commit
 
 on:
+
   push:
     branches:
-      - main
+      - master
       
   schedule:
-    - cron: "*/5 * * * *" # Run every 5 minutes
+  - cron: "*/5 * * * *" # See https://crontab.guru/#0_7,9,11_*_*_1,3
 
 jobs:
   auto_commit:
     runs-on: ubuntu-latest
     steps:
       - name: DEBUG 
-        run: echo "::debug::Ref = ${{ github.ref }}"
-      
-      - uses: actions/checkout@v3
+        run: echo "::debug::Ref = ${{github.ref}}"
+      - uses: actions/checkout@v3      
         with:
-          persist-credentials: false
-          fetch-depth: 0
-
-      - name: Configure Git
-        run: |
-          git config --local user.email "purvapatel4725@gmail.com"
-          git config --local user.name "Purvapatel4725"
-
-      - name: Fetch and Rebase from master
-        run: |
-          git fetch origin master
-          git rebase origin/master
+         persist-credentials: false
+         fetch-depth: 0
 
       - name: Modify last update
         run: |
-          d=$(date '+%Y-%m-%dT%H:%M:%SZ')
+          d=`date '+%Y-%m-%dT%H:%M:%SZ'`
           echo $d > LAST_UPDATED
-
-      - name: Stash uncommitted changes
-        run: git stash || echo "No changes to stash"
-
-      - name: Apply stashed changes
-        run: git stash pop || echo "No stashed changes to apply"
-
+          
       - name: Commit changes
         run: |
+          git config --local user.email "mazipanneh@gmail.com"
+          git config --local user.name "mazipan"
           git add -A
           
-          arr=("chore(bot): 😂 auto commit" "chore(bot): 😱 auto commit" "chore(bot): 👿 auto commit" "chore(bot): 🤧 auto commit" "chore(bot): 🙏 auto commit" "chore(bot): 💀 auto commit" "chore(bot): 🧑‍💻 auto commit" "chore(bot): 🤖 auto commit" "chore(bot): 🟩 auto commit" "chore(bot): 👻 auto commit")
-          rand=$((RANDOM % ${#arr[@]}))
+          arr[0]="chore(bot): 😂 auto commit"
+          arr[1]="chore(bot): 😱 auto commit"
+          arr[2]="chore(bot): 👿 auto commit"
+          arr[3]="chore(bot): 💩 auto commit"
+          arr[4]="chore(bot): 🙏 auto commit"
+          arr[5]="chore(bot): 🙈 auto commit"
+          arr[6]="chore(bot): 🐐 auto commit"
+          arr[7]="chore(bot): 🤖 auto commit"
+          arr[8]="chore(bot): 🟩 auto commit"
+          arr[9]="chore(bot): 👻 auto commit"
+          
+          rand=$[$RANDOM % ${#arr[@]}]
           
           git commit -m "${arr[$rand]}"
-
-      - name: Push changes
-        run: git push origin main
+          
+      - name: GitHub Push
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          directory: "."
+          github_token: ${{ secrets.GITHUB_TOKEN }}
