@@ -3,10 +3,10 @@ name: Auto commit
 on:
   push:
     branches:
-      - main
-      
+      - main  # Ensure this matches the default branch name
+   
   schedule:
-    - cron: "0/5 * * * *" # Run every 5 minutes
+    - cron: "*/5 * * * *"  # Run every 5 minutes
 
 jobs:
   auto_commit:
