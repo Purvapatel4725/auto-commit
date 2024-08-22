@@ -42,7 +42,7 @@ jobs:
         run: |
           git add -A
           
-          arr=("chore(bot): 😂 auto commit" "chore(bot): 😱 auto commit" "chore(bot): 👿 auto commit" "chore(bot): 💩 auto commit" "chore(bot): 🙏 auto commit" "chore(bot): 🙈 auto commit" "chore(bot): 🐐 auto commit" "chore(bot): 🤖 auto commit" "chore(bot): 🟩 auto commit" "chore(bot): 👻 auto commit")
+          arr=("chore(bot): 😂 auto commit" "chore(bot): 😱 auto commit" "chore(bot): 👿 auto commit" "chore(bot): 🫠 auto commit" "chore(bot): 🤧 auto commit" "chore(bot): 💀 auto commit" "chore(bot): 😭 auto commit" "chore(bot): 🤖 auto commit" "chore(bot): 😅 auto commit" "chore(bot): 👻 auto commit")
           rand=$((RANDOM % ${#arr[@]}))
           
           git commit -m "${arr[$rand]}"
