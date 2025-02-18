@@ -4,7 +4,7 @@
 - Automation of various other tasks on github
 ### Feel free to use this repository:
 - to create your workflow based on the current version.
-- as a template
+- as a starting point for more advanced functionality
 
 ## Author
 **Purva Patel**
